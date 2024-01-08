@@ -25,6 +25,10 @@ An implementation of `std::vector<bool>` that provides something akin to small-s
 
 Unbalanced binary tree container.
 
+### bheap
+
+Binary heap priority-queue.
+
 ## Arm GBA
 
 ### Mode 4 Column Unpack/Pack
