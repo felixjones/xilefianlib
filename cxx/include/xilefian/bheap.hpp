@@ -155,7 +155,7 @@ namespace std {
 
     template <typename T, class Compare, class Container>
     constexpr void swap(xilefian::bheap<T, Compare, Container>& lhs, xilefian::bheap<T, Compare, Container>& rhs) noexcept {
-    lhs.swap(rhs);
-}
+        lhs.swap(rhs);
+    }
 
 }
