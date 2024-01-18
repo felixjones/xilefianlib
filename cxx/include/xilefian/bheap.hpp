@@ -61,7 +61,7 @@ namespace xilefian {
         constexpr void pop() noexcept {
             std::iter_swap(m_heap.begin(), std::prev(m_heap.end())); // Move end to front
             m_heap.pop_back();
-            fix_heap_recursive(m_heap.begin());
+            fix_heap(m_heap.begin());
         }
 
         constexpr void swap(bheap& other) noexcept {
@@ -102,22 +102,25 @@ namespace xilefian {
             return it;
         }
 
-        constexpr void fix_heap_recursive(iterator it) noexcept {
-            auto positive = iterator_positive(it);
-            auto negative = iterator_negative(it);
-            auto largest = it;
+        constexpr void fix_heap(iterator it) noexcept {
+            while (true) {
+                auto positive = iterator_positive(it);
+                auto negative = iterator_negative(it);
+                auto largest = it;
 
-            if (positive != m_heap.end() && m_comparator(*largest, *positive)) {
-                largest = positive;
-            }
+                if (positive != m_heap.end() && m_comparator(*largest, *positive)) {
+                    largest = positive;
+                }
 
-            if (negative != m_heap.end() && m_comparator(*largest, *negative)) {
-                largest = negative;
-            }
+                if (negative != m_heap.end() && m_comparator(*largest, *negative)) {
+                    largest = negative;
+                }
 
-            if (largest != it) {
-                std::iter_swap(it, largest);
-                fix_heap_recursive(largest);
+                if (largest != it) {
+                    std::iter_swap(it, largest);
+                } else {
+                    break;
+                }
             }
         }
 
