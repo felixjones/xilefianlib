@@ -125,7 +125,7 @@ namespace xilefian {
         }
 
         constexpr iterator iterator_parent(iterator it) noexcept {
-            const auto idx = (std::distance(m_heap.begin(), it) - 1) / 2;
+            const auto idx = (static_cast<size_type>(std::distance(m_heap.begin(), it)) - 1u) / 2u;
             if (idx >= m_heap.size()) {
                 return m_heap.end();
             }
@@ -133,7 +133,7 @@ namespace xilefian {
         }
 
         constexpr iterator iterator_positive(iterator it) noexcept {
-            const auto idx = std::distance(m_heap.begin(), it) * 2 + 1;
+            const auto idx = (static_cast<size_type>(std::distance(m_heap.begin(), it)) * 2u) + 1u;
             if (idx >= m_heap.size()) {
                 return m_heap.end();
             }
@@ -141,7 +141,7 @@ namespace xilefian {
         }
 
         constexpr iterator iterator_negative(iterator it) noexcept {
-            const auto idx = std::distance(m_heap.begin(), it) * 2 + 2;
+            const auto idx = (static_cast<size_type>(std::distance(m_heap.begin(), it)) * 2u) + 2u;
             if (idx >= m_heap.size()) {
                 return m_heap.end();
             }
