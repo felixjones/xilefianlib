@@ -26,7 +26,7 @@ endif()
 if(sources)
     add_library(xilefianlib STATIC ${sources})
     target_include_directories(xilefianlib PUBLIC ${includes})
-    target_compile_features(xilefianlib PRIVATE c_std_11 cxx_std_20)
+    target_compile_features(xilefianlib PRIVATE cxx_std_20)
 
     target_compile_options(xilefianlib PRIVATE
         $<$<COMPILE_LANGUAGE:C>:
