@@ -1031,16 +1031,16 @@ namespace std {
 
     template <class Alloc>
     struct hash<xilefian::bvec<Alloc>> {
-    constexpr auto operator()(const xilefian::bvec<Alloc>& key) const noexcept -> std::size_t {
-        constexpr auto digits = std::numeric_limits<std::make_unsigned_t<std::size_t>>::digits;
-        const auto lastWord = (key.size() + digits - 1) / digits;
+        constexpr auto operator()(const xilefian::bvec<Alloc>& key) const noexcept -> std::size_t {
+            constexpr auto digits = std::numeric_limits<std::make_unsigned_t<std::size_t>>::digits;
+            const auto lastWord = (key.size() + digits - 1) / digits;
 
-        std::size_t result = key.size();
-        for (auto ii = 0u; ii < lastWord; ++ii) {
-            result = result * xilefian::bvec_block_digits<xilefian::bvec<Alloc>> + xilefian::bvec_cast<std::size_t>(key, ii);
-        }
-        return result;
-    }
-};
+            std::size_t result = key.size();
+            for (auto ii = 0u; ii < lastWord; ++ii) {
+                result = result * xilefian::bvec_block_digits<xilefian::bvec<Alloc>> + xilefian::bvec_cast<std::size_t>(key, ii);
+            }
+            return result;
+	    }
+	};
 
 }
