@@ -525,7 +525,7 @@ namespace xilefian {
                 if (value) {
                     m_data.stack.data |= (static_cast<stack_data_type>(1) << pos);
                 } else {
-                    m_data.stack.data &= ~(static_cast<stack_data_type>(1) << pos);
+                    m_data.stack.data &= ~(static_cast<stack_data_type>(1) << pos) & block_mask;
                 }
             }
         }
@@ -631,9 +631,17 @@ namespace xilefian {
         struct iterator_type {
             using difference_type = std::make_signed_t<size_type>;
             using value_type = bool;
+            using pointer = bool*;
+            using reference = bool&;
+            using iterator_category = std::random_access_iterator_tag;
 
             constexpr iterator_type(const iterator_type<std::remove_const_t<Constness>, Direction>& other) noexcept requires std::is_const_v<Constness> : m_owner{other.m_owner}, m_pos{other.m_pos} {}
             constexpr iterator_type(const iterator_type& other) noexcept : m_owner{other.m_owner}, m_pos{other.m_pos} {}
+
+            constexpr iterator_type& operator=(const iterator_type& rhs) noexcept {
+                m_pos = rhs.m_pos;
+                return *this;
+            }
 
             constexpr iterator_type operator++(int) noexcept {
                 auto prev = *this;
@@ -701,6 +709,10 @@ namespace xilefian {
 
             constexpr reference_type<Constness> operator*() const noexcept {
                 return {m_owner, static_cast<size_type>(m_pos)};
+            }
+
+            constexpr difference_type operator-(const iterator_type& rhs) const noexcept {
+                return m_pos - rhs.m_pos;
             }
 
             [[nodiscard]]
